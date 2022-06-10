@@ -11,6 +11,10 @@ body {
 	background-color: #fdfdfd;
 	margin: 0;
 	position:relative;
+  display: grid;
+  grid-template-areas: 'navbar'
+                        'main'
+                        'footer';
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -36,6 +40,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 	display: block;
 }
 #maincontent {
+  grid-area: main;
+  display: grid;
   background-color: #f3f3f3;
   min-height: 100%;
 }
@@ -47,6 +53,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   padding: 25px;
   text-align: center;
   text-transform: uppercase;
+  grid-area: footer;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -54,6 +61,7 @@ nav {
   height: 80px;
   background-color: #252831;
   text-align:center;
+  grid-area: navbar;
 }
 nav h1 {
   margin: auto;
@@ -106,7 +114,7 @@ nav h1 a {
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;
-  height: 50px;
+  height: 80px;
   background-color: #3397DB;
   align-items: center;
 }
@@ -115,7 +123,8 @@ nav h1 a {
   font-size: 1rem;
   font-weight: normal;
   line-height: 1;
-  margin: 0 20px;
+  margin: 0 30px;
+  padding: 5px 0 0 0;
 }
 .filter-options select {
   background-color: white;
@@ -130,7 +139,13 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Listing ====================== */
+#restaurants-container{
+  grid-area: restaurants;
+}
 #restaurants-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   background-color: #f3f3f3;
   list-style: outside none none;
   margin: 0;
@@ -190,6 +205,7 @@ nav h1 a {
   z-index: 1000;
 }
 .inside #map-container {
+  grid-area: map;
   background: blue none repeat scroll 0 0;
   height: 87%;
   position: fixed;
@@ -241,6 +257,7 @@ nav h1 a {
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
   width: 50%;
+  grid-area: restaurant;
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -273,3 +290,75 @@ nav h1 a {
 #restaurant-hours td {
   color: #666;
 }
+/*======================================== Small devices ===================== */
+
+  /*============ Smartphones ================*/
+  @media screen and (max-width: 425px) {
+    #map{
+      height: 200px;
+    }
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .filter-options h2 {
+      width: 100%;
+    }
+    .filter-options select {
+      width: 43%;
+    }
+    #restaurants-list{
+      padding: 10px;
+    }
+    #restaurants-list li {
+      margin: 10px 0;
+      min-height: 380px;
+      text-align: left;
+      width: 100%;
+    }
+    #restaurants-list .restaurant-img {
+      max-width: 100%;
+    }
+    #restaurants-list li h1 {
+      font-size: 12pt;
+      line-height: 1.2;
+      margin: 15px 0 7.5px;
+    }
+    #maincontent{
+      grid-template-areas: 'map'
+                            'restaurants'
+                            ;
+    }
+
+    .inside #breadcrumb{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .inside #footer {
+      bottom: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+
+  /*============ Tablets ====================*/
+  @media screen and (min-width: 426px) and (max-width: 1023px) {
+    #map{
+      height: 200px;
+    }
+    #maincontent{
+      grid-template-areas: 'maps''restaurants';
+    }
+  }
+
+  /*=========== For Desktops ===============*/
+  @media screen and (min-width: 1024px) {
+    #maincontent{
+      grid-template-areas: 'navbar navbar'
+                            'map map'
+                            'restaurants restaurants'
+                            'footer footer';
+    }
+  }
