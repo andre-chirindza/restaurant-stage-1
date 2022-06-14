@@ -11,6 +11,10 @@ body {
 	background-color: #fdfdfd;
 	margin: 0;
 	position:relative;
+  display: grid;
+  grid-template-areas: 'navbar'
+                        'main'
+                        'footer';
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -36,6 +40,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 	display: block;
 }
 #maincontent {
+  grid-area: main;
+  display: grid;
   background-color: #f3f3f3;
   min-height: 100%;
 }
@@ -47,6 +53,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   padding: 25px;
   text-align: center;
   text-transform: uppercase;
+  grid-area: footer;
 }
 /* ====================== Navigation ====================== */
 nav {
@@ -54,6 +61,7 @@ nav {
   height: 80px;
   background-color: #252831;
   text-align:center;
+  grid-area: navbar;
 }
 nav h1 {
   margin: auto;
@@ -132,6 +140,7 @@ nav h1 a {
 
 /* ====================== Restaurant Listing ====================== */
 #restaurants-container{
+  grid-area: restaurants;
 }
 #restaurants-list {
   display: flex;
@@ -149,7 +158,7 @@ nav h1 a {
   font-family: Arial,sans-serif;
   margin: 15px;
   min-height: 380px;
-  padding: 0 20px 20px;
+  padding: 0 30px 25px;
   text-align: left;
   width: 270px;
 }
@@ -190,17 +199,19 @@ nav h1 a {
 
 /* ====================== Restaurant Details ====================== */
 .inside header {
+  grid-area: inside-header;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-.inside main#maincontent{
-  width: 100%;
-  margin-top: 100px;
+.inside main{
+  grid-area: inside-main;
+  position: relative;
 }
 .inside #map-container {
+  grid-area: inside-map;
   background: blue none repeat scroll 0 0;
 }
 .inside #map {
@@ -209,9 +220,10 @@ nav h1 a {
   width: 100%;
 }
 .inside #footer {
+  grid-area: inside-footer;
   bottom: 0;
   position: absolute;
-  width: 100%;
+  width: 50%;
 }
 #restaurant-container, #reviews-container {
   border-bottom: 1px solid #d9d9d9;
@@ -228,7 +240,7 @@ nav h1 a {
   line-height: 1.1;
 }
 #restaurant-img {
-	width: 100%;
+	width: 90%;
 }
 #restaurant-address {
   font-size: 12pt;
@@ -244,9 +256,12 @@ nav h1 a {
   padding: 2px 0;
   text-align: center;
   text-transform: uppercase;
-	width: 100%;
+	width: 90%;
 }
 
+#reviews-container {
+  grid-area: inside-reviews;
+}
 #reviews-container h2 {
   color: #f58500;
   font-size: 24pt;
@@ -313,13 +328,21 @@ nav h1 a {
       padding: 40px 10px;
     }
   
+
+    .inside{
+      grid-template-areas: 'inside-header'
+                            'inside-main'
+                            'inside-footer'
+                            ;
+    }
     .inside #breadcrumb{
       width: 100%;
       margin-bottom: 10px;
     }
 
     .inside #footer {
-      position: relative;
+      /* bottom: 0; */
+      position: fixed;
       height: 20px;
       width: 100%;
     }
@@ -334,9 +357,16 @@ nav h1 a {
     }
 
     .inside #reviews-container, #restaurant-container{
-      width: 90%;
+      width: 100%;
       position: relative;
-      margin: auto;
+    }
+    
+
+    .inside #maincontent{
+      grid-template-areas: 'inside-map'
+                            'inside-restaurants'
+                            'inside-reviews'
+                            ;
     }
 
     
@@ -346,17 +376,21 @@ nav h1 a {
   /*============ Tablets ====================*/
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     #map{
-      height: 400px;
+      height: 200px;
+    }
+    #maincontent{
+      grid-template-areas: 'maps''restaurants';
     }
 
     #restaurant-container, #reviews-container {
       border-bottom: 1px solid #d9d9d9;
       border-top: 1px solid #fff;
-      padding: 20px 10px 70px 10px;
+      padding: 140px 40px 30px;
       width: 50%;
     }
 
     .inside #map-container {
+      grid-area: inside-map;
       background: blue none repeat scroll 0 0;
       height: 87%;
       position: fixed;
@@ -368,13 +402,22 @@ nav h1 a {
 
   /*=========== For Desktops ===============*/
   @media screen and (min-width: 1024px) {
+    #maincontent{
+      grid-template-areas: 'navbar navbar'
+                            'map map'
+                            'restaurants restaurants'
+                            'footer footer';
+    }
+
+
     #restaurant-container, #reviews-container {
       border-bottom: 1px solid #d9d9d9;
       border-top: 1px solid #fff;
-      padding: 50px 10px;
+      padding: 140px 40px 30px;
       width: 50%;
     }
     .inside #map-container {
+      grid-area: inside-map;
       background: blue none repeat scroll 0 0;
       height: 87%;
       position: fixed;
