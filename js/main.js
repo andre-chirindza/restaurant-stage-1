@@ -9,9 +9,9 @@ var markers = []
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
+  ServiceWorkerRegister.register();
   fetchNeighborhoods();
   fetchCuisines();
-  serviceWorkerRegister();
 });
 
 /**
@@ -212,19 +212,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
-
-/** 
-*  ServiceWork register
-*/
-
-serviceWorkerRegister = () => {
-  if (navigator.serviceWorker) {
-    
-    navigator.serviceWorker
-      .register('/js/sw/index.js')
-      .then(register => console.log('ServiceWorker Registered'))
-      .catch(error => console.log(`ServiceWorker failed: ${error.message}`));
-  }
-
-
-}

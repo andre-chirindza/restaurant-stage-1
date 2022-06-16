@@ -2,7 +2,21 @@
 const cacheName = 'restaurant_v1';
 const cacheAssets = [
     '/index.html',
-    '/js/main.js'
+    '/restaurant.html',
+    '/css/styles.css',
+    '/js/main.js',
+    '/js/dbhelper.js',
+    '/img/1.jpg',
+    '/img/2.jpg',
+    '/img/3.jpg',
+    '/img/4.jpg',
+    '/img/5.jpg',
+    '/img/6.jpg',
+    '/img/7.jpg',
+    '/img/8.jpg',
+    '/img/9.jpg',
+    '/img/10.jpg',
+    '/data/restaurants.json',
 ];
 
 self.addEventListener('install', event => {
@@ -38,17 +52,12 @@ self.addEventListener('activate', event => {
  * Copying the entire page with the assets
  **/
 self.addEventListener('fetch', event => {
+    console.log('Trying to fetch in the cache')
     event.respondWith(
-        fetch(event.request)
+        caches.match(event.request)
             .then(response => {
-                const responseClone = response.clone();
-
-                caches.open(cacheName)
-                    .then(cache => {
-                        cache.put(event.request, responseClone);
-                    });
-                return response;
-            })
-            .catch(() => caches.match(event.request))
+                if (response) return response;
+                return fetch(event.request);
+        })
     );
 });
