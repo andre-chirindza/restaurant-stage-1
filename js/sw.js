@@ -1,30 +1,24 @@
 
-const cacheName = 'restaurant_v1';
-const cacheAssets = [
-    '/index.html',
-    '/js/main.js'
-];
+const cacheName = 'restaurant-v1';
 
+/**
+ * Installing the Service Worker
+*/
 self.addEventListener('install', event => {
 
-    event.waitUntil(
-        caches
-            .open(cacheName)
-            .then(cache => {
-                console.log('Caching the files');
-                cache.addAll(cacheAssets);
-            })
-            .then(() => self.skipWaiting())
-            .catch(error => console.log(`Error: ${error}`))
-    );
+    console.log('Service Worker installed.');
+    event.skipWaiting();
 });
 
+/**
+ * Deleting the previous cache 
+*/
 self.addEventListener('activate', event => {
-
+    console.log(`Service Worker actived.`)
+    
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
-
                 cacheNames.map(cache => {
                     if (cache != cacheName) return caches.delete(cache)
                 })
